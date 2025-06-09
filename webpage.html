@@ -3,208 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <title>SHOT FROM HEAVEN</title>
-  <!-- Font Awesome 아이콘 -->
   <script src="https://kit.fontawesome.com/a2e0e6e6f0.js" crossorigin="anonymous"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: black;
-      overflow: hidden;
+      width:100%; height:100%;
+      font-family:'Segoe UI', sans-serif;
+      background:black; overflow:hidden;
     }
 
-    .intro, .main {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
+    .section {
+      position:absolute; top:0; left:0;
+      width:100vw; height:100vh;
+      opacity:0; transition:opacity 1s ease;
+    }
+    .section.active { opacity:1; }
+
+    iframe, .bg-video {
+      position:absolute; top:50%; left:50%;
+      width:120vw; height:56.25vw;
+      min-height:100vh;
+      transform:translate(-50%,-50%);
+      pointer-events:none; z-index:0;
     }
 
-    iframe {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120vw;
-      height: 56.25vw;
-      min-height: 100vh;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 0;
+    .overlay-bg { opacity:0.3; z-index:1; }
+
+    .intro-content, .main-content, .film-content {
+      position:absolute; z-index:2;
+      width:100%; height:100%;
+      color:white; display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      background:rgba(0,0,0,0.3);
     }
 
-    .intro-content, .main-content {
-      position: absolute;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.3);
+    h1,h2,p,button {
+      opacity:0; transform:translateY(20px) scale(1.2);
+      animation:fadeSlideScale 1.2s ease forwards;
     }
 
-    h1, h2, p {
-      opacity: 0;
-      transform: translateY(20px) scale(1.2);
-      animation: fadeSlideScale 1.2s ease forwards;
-    }
-
-    h1 { font-size: 3rem; animation-delay: 0.2s; }
-    h2 { font-size: 2rem; animation-delay: 0.3s; }
-    p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-      animation-delay: 0.6s;
-    }
-
-    @keyframes fadeSlideScale {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
+    h1 { font-size:3rem; animation-delay:0.2s; }
+    h2 { font-size:2rem; animation-delay:0.3s; }
+    p { font-size:1.2rem; margin-top:1rem; animation-delay:0.6s; }
 
     button {
-      margin-top: 2rem;
-      padding: 12px 28px;
-      font-size: 1.1rem;
-      border: 2px solid white;
-      border-radius: 30px;
-      background-color: transparent;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s ease;
-      animation: fadeSlideScale 1.2s ease forwards;
-      animation-delay: 0.8s;
+      margin-top:2rem; padding:12px 28px;
+      font-size:1.1rem; border:2px solid white;
+      border-radius:30px;
+      background:transparent;
+      color:white; cursor:pointer;
+      transition:0.3s ease;
+      animation:fadeSlideScale 1.2s ease forwards;
+      animation-delay:0.8s;
     }
 
-    button:hover {
-      background-color: white;
-      color: black;
+    button:hover { background:white; color:black; }
+
+    @keyframes fadeSlideScale {
+      to { opacity:1; transform:translateY(0) scale(1); }
     }
 
     nav {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 3;
+      position:absolute; top:0;
+      width:100%; display:flex;
+      justify-content:center;
+      background:rgba(0,0,0,0.6);
+      z-index:3;
     }
 
     nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      padding: 1rem 0;
+      display:flex; gap:2rem;
+      list-style:none; padding:1rem 0;
     }
 
     nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
+      color:white; font-size:1.1rem;
+      font-weight:bold; text-decoration:none;
+      cursor:pointer;
     }
 
-    #bg-video {
-      opacity: 1;
-    }
-
-    .dark-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: 1;
-      animation: fadeOut 5s ease forwards;
-    }
-
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* 연락처 Footer */
+    /* Footer */
     .footer {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #cccccc;
-      z-index: 3;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      align-items: center;
-      flex-wrap: wrap;
+      position:absolute; bottom:15px; width:100%;
+      display:flex; justify-content:center;
+      gap:1.5rem; align-items:center;
+      font-size:0.9rem; color:#ccc;
+      z-index:3; flex-wrap:wrap;
     }
 
     .footer a {
-      color: #cccccc;
-      font-size: 0.9rem;
-      text-decoration: none;
-      margin: 0 0.5rem;
-      transition: color 0.3s ease;
+      display:flex; align-items:center;
+      color:#ccc; text-decoration:none;
+      transition:color .3s;
     }
 
-    .footer a:hover {
-      color: white;
+    .footer a:hover { color:white; }
+    .footer i { margin-right:6px; }
+
+    /* FILM 콘텐츠 영역 */
+    .film-content {
+      position:absolute;
+      top:60px; /* 메뉴 아래 여백 */
+      left:0;
+      width:100%;
+      height:calc(100% - 60px);
+      padding:3rem 2rem;
+      overflow-y:auto;
+      background:none;
+      z-index:2;
     }
 
-    .footer i {
-      margin-right: 6px;
+    .film-gallery {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+      gap:2rem; max-width:1200px;
+      margin:0 auto;
+    }
+
+    .film-card {
+      display:flex; flex-direction:column;
+      text-align:center; color:white;
+      text-decoration:none;
+      transition:transform .3s;
+    }
+
+    .film-card img {
+      width:100%;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .film-card p {
+      margin-top:0.5rem;
+      font-size:1rem;
+      font-weight:500;
+    }
+
+    .film-card:hover { transform:scale(1.03); }
+
+    .film-content::-webkit-scrollbar { width:8px;}
+    .film-content::-webkit-scrollbar-thumb {
+      background:rgba(255,255,255,0.2);
+      border-radius:4px;
     }
   </style>
 </head>
 <body>
 
-  <!-- 인트로 화면 -->
-  <div class="intro">
-    <iframe src="https://www.youtube.com/embed/QLQRg1H28PU?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=QLQRg1H28PU&vq=hd1080"
-            frameborder="0" allow="autoplay" allowfullscreen></iframe>
+  <!-- 인트로 -->
+  <div id="intro" class="section active">
+    <iframe src="https://www.youtube.com/embed/QLQRg1H28PU?autoplay=1&mute=1&controls=0&loop=1&playlist=QLQRg1H28PU&vq=hd1080"></iframe>
     <div class="intro-content">
       <h1>Welcome to SHOT FROM HEAVEN</h1>
       <button onclick="enterSite()">Entry</button>
     </div>
   </div>
 
-  <!-- 메인 화면 -->
-  <div class="main" style="display: none;">
-    <iframe id="bg-video"
-            src="https://www.youtube.com/embed/h5zExzUyDQA?start=7&autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&loop=1&playlist=h5zExzUyDQA&vq=hd1080"
-            frameborder="0" allow="autoplay" allowfullscreen></iframe>
-
-    <!-- 어두운 오버레이 -->
-    <div class="dark-overlay"></div>
-
-    <!-- 상단 메뉴 -->
+  <!-- 메인 -->
+  <div id="main" class="section">
+    <iframe class="bg-video"
+      src="https://www.youtube.com/embed/h5zExzUyDQA?start=7&autoplay=1&mute=1&controls=0&loop=1&playlist=h5zExzUyDQA&vq=hd1080"></iframe>
     <nav>
       <ul>
-        <li><a href="#">Film</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a onclick="switchSection('main')">Main</a></li>
+        <li><a onclick="switchSection('film')">Film</a></li>
+        <li><a>About</a></li>
+        <li><a>Contact</a></li>
         <li><a href="https://www.youtube.com/@KimPoryYT" target="_blank">SNS</a></li>
       </ul>
     </nav>
-
-    <!-- 중앙 텍스트 -->
     <div class="main-content">
       <h2>항공촬영 전문 SHOT FROM HEAVEN에 오신 것을 환영합니다</h2>
       <p>부산 경상도를 중심으로 활동하고 있는 1인 항공촬영 프로듀서입니다.</p>
     </div>
-
-    <!-- 하단 연락처 -->
     <footer class="footer">
       <a href="https://instagram.com/min_pory" target="_blank"><i class="fab fa-instagram"></i>INSTAGRAM : min_pory</a>
       <a href="https://www.youtube.com/@KimPoryYT" target="_blank"><i class="fab fa-youtube"></i>YOUTUBE : @KimPoryYT</a>
@@ -212,10 +188,60 @@
     </footer>
   </div>
 
+  <!-- Film -->
+  <div id="film" class="section">
+    <iframe class="bg-video overlay-bg"
+      src="https://www.youtube.com/embed/5gbEfyfViBU?autoplay=1&mute=1&controls=0&loop=1&playlist=5gbEfyfViBU&vq=hd1080"></iframe>
+    <nav>
+      <ul>
+        <li><a onclick="switchSection('main')">Main</a></li>
+        <li><a onclick="switchSection('film')">Film</a></li>
+        <li><a>About</a></li>
+        <li><a>Contact</a></li>
+        <li><a href="https://www.youtube.com/@KimPoryYT" target="_blank">SNS</a></li>
+      </ul>
+    </nav>
+    <div class="film-content">
+      <div class="film-gallery">
+        <a href="https://www.youtube.com/watch?v=QLQRg1H28PU" target="_blank" class="film-card">
+          <img src="image1.png" alt="부산 해운대 FPV 다이브">
+          <p>부산 해운대 FPV 다이브</p>
+        </a>
+        <a href="https://www.youtube.com/watch?v=h5zExzUyDQA&t=7s" target="_blank" class="film-card">
+          <img src="image2.png" alt="FPV를 활용한 부산 다이브">
+          <p>FPV를 활용한 부산 다이브</p>
+        </a>
+        <a href="https://www.youtube.com/watch?v=-izr4VVRkA8&t=72s" target="_blank" class="film-card">
+          <img src="image3.png" alt="2024년 하반기 수영구청 합작 웹드라마 총괄 프로듀서">
+          <p>2024년 하반기 수영구청 합작 웹드라마 총괄 프로듀서</p>
+        </a>
+        <a href="https://www.youtube.com/watch?v=6zgS8slvVao" target="_blank" class="film-card">
+          <img src="image4.jpg" alt="2024년 상반기 수영구청 합작 웹드라마 총괄 프로듀서">
+          <p>2024년 상반기 수영구청 합작 웹드라마 총괄 프로듀서</p>
+        </a>
+        <a href="https://www.youtube.com/watch?v=7Ay75N1UN64" target="_blank" class="film-card">
+          <img src="image5.jpg" alt="2024년 하반기 수영구청 합작 웹드라마 총괄 프로듀서">
+          <p>2024년 하반기 수영구청 합작 웹드라마 총괄 프로듀서</p>
+        </a>
+        <a href="https://www.youtube.com/watch?v=5gbEfyfViBU" target="_blank" class="film-card">
+          <img src="image6.jpg" alt="남해대교 FPV 다이브">
+          <p>남해대교 FPV 다이브</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script>
     function enterSite() {
-      document.querySelector('.intro').style.display = 'none';
-      document.querySelector('.main').style.display = 'block';
+      document.getElementById('intro').classList.remove('active');
+      document.getElementById('main').classList.add('active');
+    }
+
+    function switchSection(sectionId) {
+      ['intro', 'main', 'film'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
     }
   </script>
 </body>
