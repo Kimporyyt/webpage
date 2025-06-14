@@ -29,7 +29,7 @@
 
     .overlay-bg { opacity:0.3; z-index:1; }
 
-    .intro-content, .main-content, .film-content {
+    .intro-content, .main-content, .film-content, .about-content {
       position:absolute; z-index:2;
       width:100%; height:100%;
       color:white; display:flex;
@@ -66,6 +66,16 @@
       to { opacity:1; transform:translateY(0) scale(1); }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeText {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     nav {
       position:absolute; top:0;
       width:100%; display:flex;
@@ -85,7 +95,6 @@
       cursor:pointer;
     }
 
-    /* Footer */
     .footer {
       position:absolute; bottom:15px; width:100%;
       display:flex; justify-content:center;
@@ -103,10 +112,9 @@
     .footer a:hover { color:white; }
     .footer i { margin-right:6px; }
 
-    /* FILM 콘텐츠 영역 */
     .film-content {
       position:absolute;
-      top:60px; /* 메뉴 아래 여백 */
+      top:60px;
       left:0;
       width:100%;
       height:calc(100% - 60px);
@@ -172,8 +180,8 @@
       <ul>
         <li><a onclick="switchSection('main')">Main</a></li>
         <li><a onclick="switchSection('film')">Film</a></li>
-        <li><a>About</a></li>
-        <li><a>Contact</a></li>
+        <li><a onclick="switchSection('about')">About</a></li>
+        
         <li><a href="https://www.youtube.com/@KimPoryYT" target="_blank">SNS</a></li>
       </ul>
     </nav>
@@ -196,8 +204,8 @@
       <ul>
         <li><a onclick="switchSection('main')">Main</a></li>
         <li><a onclick="switchSection('film')">Film</a></li>
-        <li><a>About</a></li>
-        <li><a>Contact</a></li>
+        <li><a onclick="switchSection('about')">About</a></li>
+        
         <li><a href="https://www.youtube.com/@KimPoryYT" target="_blank">SNS</a></li>
       </ul>
     </nav>
@@ -231,6 +239,114 @@
     </div>
   </div>
 
+  
+
+
+
+<!-- About -->
+<div id="about" class="section">
+  <iframe class="bg-video overlay-bg"
+    src="https://www.youtube.com/embed/vCRXTwb_GMY?autoplay=1&mute=1&controls=0&loop=1&playlist=vCRXTwb_GMY&vq=hd1080"></iframe>
+  <nav>
+    <ul>
+      <li><a onclick="switchSection('main')">Main</a></li>
+      <li><a onclick="switchSection('film')">Film</a></li>
+      <li><a onclick="switchSection('about')">About</a></li>
+      <li><a href="https://www.youtube.com/@KimPoryYT" target="_blank">SNS</a></li>
+    </ul>
+  </nav>
+  <div class="about-content" style="position:absolute; top:60px; left:0; width:100%; height:calc(100% - 60px); z-index:2; display:flex; justify-content:center; align-items:center; padding:2rem; flex-wrap:wrap;">
+    <div class="about-img" style="flex:0 0 auto; max-width:350px; margin-right:0.5rem;">
+      <img src="image7.png" alt="프로필 이미지" style="width:350px; height:auto; border-radius:12px; box-shadow:0 0 20px rgba(255,255,255,0.3), 0 5px 20px rgba(0,0,0,0.4);"/>
+    </div>
+    <div class="about-text" style="flex:1; min-width:300px; color:white;">
+      <p class="fadein-delay1" style="font-size:1.2rem; color:#aaa; margin-bottom:0.3rem;">새로운 기술을 발빠르게 적용하는</p>
+      <h1 class="fadein-delay2" style="font-size:2.4rem; margin-bottom:1rem;">차세대 크리에이터</h1>
+      <h2 class="fadein-delay3" style="font-size:1.5rem; margin-bottom:1rem;">김기민 KIM KI MIN</h2>
+      <p class="fadein-delay4" style="line-height:1.7;">
+        <strong>- 학력</strong><br>
+        2020.02 점촌고등학교 졸업<br>
+        2020.03 ~ 2024.12 경성대학교 글로컬문화학부 문화콘텐츠전공<br>
+        2025.03 ~ 경성대학교 예술종합대학 미디어콘텐츠학과<br><br>
+
+        <strong>- 경력사항</strong><br>
+        2023.09 ~ 경성대학교 학내언론사 정기자 활동<br>
+        2024.04 ~ 06 수영구청 합작 웹드라마 인사이드 메모리 총괄 프로듀서<br>
+        2024.09 ~ 11 인문다큐360 조감독 및 촬영감독<br>
+        2024.09 ~ 12 수영구청 합작 웹드라마 인사이드 멜로디 총괄 프로듀서<br><br>
+
+        <strong>- 수상내역</strong><br>
+        19회 부산영상공모전 최우수상<br>
+        24회 MTN 대한민국 중소기업 광고공모전 머니투데이방송사장상<br>
+        감탄로드 서체활용 SNS 콘텐츠 공모전 장려상<br>
+        제8회 경북학생영상제 은상<br>
+        더이누스 욕썰 공모전 기대이상
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .about-img, .about-text p, .about-text h1, .about-text h2 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .about-img {
+    animation-delay: 1s;
+  }
+  .fadein-delay1 { animation-delay: 1.2s; }
+  .fadein-delay2 { animation-delay: 1.4s; }
+  .fadein-delay3 { animation-delay: 1.6s; }
+  .fadein-delay4 { animation-delay: 1.8s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+</div>
+
+<style>
+  .about-img, .about-text p, .about-text h1, .about-text h2 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .about-img {
+    animation-delay: 0.2s;
+  }
+  .fadein-delay1 { animation-delay: 0.4s; }
+  .fadein-delay2 { animation-delay: 0.6s; }
+  .fadein-delay3 { animation-delay: 0.8s; }
+  .fadein-delay4 { animation-delay: 1s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</div>
+
+  </div>
+
   <script>
     function enterSite() {
       document.getElementById('intro').classList.remove('active');
@@ -238,7 +354,7 @@
     }
 
     function switchSection(sectionId) {
-      ['intro', 'main', 'film'].forEach(id => {
+      ['intro', 'main', 'film', 'about'].forEach(id => {
         document.getElementById(id).classList.remove('active');
       });
       document.getElementById(sectionId).classList.add('active');
